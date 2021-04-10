@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dialogsItems {
+  width: 20%;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.dialogss {
+  display: flex;
+}
+.messeges {
+  width: 80%;
+
+}
+
+.dialog {
+  padding: 10px 10px;
+}
+
+.active {
+  color: #4d4d4d;
+}
+
+.dialogsItem {
+  color: #4d4d4d;
+  
+}
+
+.dialogItem {
+  padding: 20px 10px;
+  text-decoration: none;
+  color: #a3a3a3;
+  border-right: 1px solid #4d4d4d;
+}
