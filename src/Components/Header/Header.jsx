@@ -10,6 +10,9 @@ let Header = () => {
           <NavLink className={style.nav__link} activeClassName={style.active} to="profile">
             Profile
           </NavLink>
+          <NavLink className={style.nav__link} activeClassName={style.active} to="users">
+            Users
+          </NavLink>
           <NavLink className={style.nav__link} activeClassName={style.active} to="dialogs">
             Messages
           </NavLink>

@@ -25,7 +25,7 @@ let Dialogs = (props) => {
   return (
     <div className={style.dialogs}>
       <div className={style.container}>
-        <div className={style.dialogss}>
+        <div className={style.dialogss}>  
           <div className={style.dialogsItems}>{dialogsElements}</div>
           <div className={style.messeges}>
             <div>

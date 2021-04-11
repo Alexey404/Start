@@ -1,6 +1,5 @@
 import React from "react";
 import Post from "../Post/post";
-import style from "../profile.module.scss";
 
 let MyPosts = (props) => {
   let postsElement = props.posts.map((p) => (
