@@ -36,7 +36,5 @@ a {
   margin: 0 auto;
   padding-left: 1rem;
   padding-right: 1rem;
-}
-.all {
-  background-color: #636363;
+  text-align: center;
 }

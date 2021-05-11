@@ -2,3 +2,15 @@
   width: 100px;
   height: 100px;
 }
+.selectedPage {
+  font-weight: bold;
+}
+.Page {
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.prealoader {
+  margin-top: 30%;
+}
