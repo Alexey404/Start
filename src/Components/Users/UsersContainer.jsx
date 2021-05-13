@@ -12,6 +12,7 @@ import * as axios from "axios";
 import Users from "./Users";
 
 import Preloader from "../Preloader/Preloader";
+import Pagination from "../Pagination/Pagination";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -43,6 +44,12 @@ class UsersContainer extends React.Component {
   render() {
     return (
       <div>
+        <Pagination
+          onPageChanged={this.onPageChanged}
+          currentPage={this.props.currentPage}
+          totalUsersCount={this.props.totalUsersCount}
+          pageSize={this.props.pageSize}
+        />
         {this.props.isFetching ? (
           <Preloader />
         ) : (
@@ -54,6 +61,7 @@ class UsersContainer extends React.Component {
             unfollow={this.props.unfollow}
             follow={this.props.follow}
             onPageChanged={this.onPageChanged}
+            isFetching={this.props.isFetching}
           />
         )}
       </div>

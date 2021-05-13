@@ -1,0 +1,45 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__link {
+  border-radius: 40px;
+  padding: 5px 20px;
+  position: relative;
+  font-size: 15px;
+  color: #919191;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.4s;
+  font-family: "Myriad Set Pro Ultralight Кириллический";
+  border: none;
+  outline: none;
+  background: none;
+
+  &:hover {
+    color: #e0e0e0;
+  }
+  
+}
+.active {
+  color: #ffffff;
+
+  &:hover {
+    color: #e0e0e0;
+  }
+}
+
+.plagination {
+  display: flex;
+  text-decoration: none;
+}
+.container {
+  text-align: center;
+  align-items: center;
+  &::marker {
+    display: none;
+  }
+}
