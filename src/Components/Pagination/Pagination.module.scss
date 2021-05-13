@@ -22,7 +22,6 @@
   &:hover {
     color: #e0e0e0;
   }
-  
 }
 .active {
   color: #ffffff;
@@ -34,6 +33,8 @@
 
 .plagination {
   display: flex;
+  align-items: center;
+  margin: 0 auto;
   text-decoration: none;
 }
 .container {

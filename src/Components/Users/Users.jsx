@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Pagination from "../Pagination/Pagination";
 import styles from "./user.module.scss";
 
 let Users = (props) => {
