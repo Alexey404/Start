@@ -11,19 +11,23 @@ let Pagination = (props) => {
   };
 
   return (
-    <div ClassName={style.container}>
+    <div className={style.pagination}>
       <ReactPaginate
         pageCount={pagesCount}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={6}
         marginPagesDisplayed={1}
-        
         onPageChange={({ selected }) => {
           onPage(selected + 1);
         }}
-        activeClassName={style.active}
-        pageClassName={style.nav__link}
+        activeLinkClassName={style.active}
+        pageLinkClassName={style.nav__link}
         disabledClassName={style.nav__link}
-        containerClassName={style.plagination}
+        containerClassName={style.container}
+        nextClassName={style.Of}
+        previousClassName={style.Of}
+        breakLinkClassName={style.nav__link}
+        pageClassName={style.Li}
+        breakClassName={style.Li}
       />
     </div>
   );

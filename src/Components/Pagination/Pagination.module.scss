@@ -1,13 +1,8 @@
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .nav__link {
-  border-radius: 40px;
-  padding: 5px 20px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
   position: relative;
   font-size: 15px;
   color: #919191;
@@ -15,13 +10,17 @@
   text-decoration: none;
   transition: color 0.4s;
   font-family: "Myriad Set Pro Ultralight Кириллический";
-  border: none;
+  border: 1px solid #444444;
   outline: none;
   background: none;
+  cursor: pointer;
 
   &:hover {
     color: #e0e0e0;
   }
+}
+.Li {
+  margin: 0px 3px;
 }
 .active {
   color: #ffffff;
@@ -30,17 +29,21 @@
     color: #e0e0e0;
   }
 }
-
-.plagination {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  text-decoration: none;
+li::marker {
+  color: rgba(0, 0, 139, 0);
 }
 .container {
+  display: flex;
+  margin: 0 auto;
+  width: 600px;
   text-align: center;
   align-items: center;
-  &::marker {
-    display: none;
-  }
+  padding: 10px;
+}
+.pagination {
+  flex: 0 0 auto;
+  text-align: center;
+}
+.Of {
+  display: none;
 }

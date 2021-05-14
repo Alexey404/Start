@@ -1,6 +1,7 @@
 .userPhoto {
   width: 100px;
   height: 100px;
+  border-radius: 20px;
 }
 .selectedPage {
   font-weight: bold;
@@ -18,4 +19,42 @@
 .prealoaderCont {
   width: 100%;
   text-align: center;
+}
+
+.containerUsers {
+  border-radius: 5px;
+  margin: 0 auto;
+  border: 1px solid rgb(97, 97, 97);
+}
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+.item {
+  margin: 20px;
+  padding: 10px;
+  border-bottom: 1px solid rgb(107, 107, 107);
+  color: rgb(255, 255, 255);
+  display: flex;
+}
+.userNameCont {
+  margin-left: 50px;
+}
+.userName {
+  margin-bottom: 15px;
+}
+.userStatus {
+  margin-bottom: 15px;
+}
+.userFollow {
+  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  outline: none;
+  background-color: rgba(54, 54, 54, 0);
+  margin-bottom: 15px;
+  margin-left: 50px;
+  cursor: pointer;
+  border: 1px solid rgb(97, 97, 97);
+  border-radius: 5px;
 }

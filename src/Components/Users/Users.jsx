@@ -6,8 +6,8 @@ let Users = (props) => {
   return (
     <div>
       {props.users.map((u) => (
-        <div key={u.id}>
-          <span>
+        <div key={u.id} className={styles.item}>
+          <div>
             <div>
               <NavLink to={"/profile/" + u.id}>
                 <img
@@ -21,9 +21,15 @@ let Users = (props) => {
                 />
               </NavLink>
             </div>
+          </div>
+          <div>
+            <div className={styles.userNameCont}>
+              <div className={styles.userName}>{u.name}</div>
+              <div className={styles.userStatus}>{u.status}</div>
+            </div>
             <div>
               {u.followed ? (
-                <button
+                <button className={styles.userFollow}
                   onClick={() => {
                     props.unfollow(u.id);
                   }}
@@ -31,7 +37,7 @@ let Users = (props) => {
                   Unfollow
                 </button>
               ) : (
-                <button
+                <button className={styles.userFollow}
                   onClick={() => {
                     props.follow(u.id);
                   }}
@@ -40,13 +46,7 @@ let Users = (props) => {
                 </button>
               )}
             </div>
-          </span>
-          <span>
-            <span>
-              <div>{u.name}</div>
-              <div>{u.status}</div>
-            </span>
-          </span>
+          </div>
         </div>
       ))}
     </div>

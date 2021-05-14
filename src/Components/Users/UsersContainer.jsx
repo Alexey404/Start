@@ -10,6 +10,7 @@ import {
 } from "../../Redux/users-reducer";
 import * as axios from "axios";
 import Users from "./Users";
+import styles from "./user.module.scss";
 
 import Preloader from "../Preloader/Preloader";
 import Pagination from "../Pagination/Pagination";
@@ -38,6 +39,7 @@ class UsersContainer extends React.Component {
       .then((Response) => {
         this.props.setUsers(Response.data.items);
         this.props.setIsFetching(false);
+        console.log(Response);
       });
   };
 
@@ -53,23 +55,19 @@ class UsersContainer extends React.Component {
         {this.props.isFetching ? (
           <Preloader />
         ) : (
-          <div>
-            <Users
-              totalUsersCount={this.props.totalUsersCount}
-              pageSize={this.props.pageSize}
-              currentPage={this.props.currentPage}
-              users={this.props.users}
-              unfollow={this.props.unfollow}
-              follow={this.props.follow}
-              onPageChanged={this.onPageChanged}
-              isFetching={this.props.isFetching}
-            />
-            <Pagination
-              onPageChanged={this.onPageChanged}
-              currentPage={this.props.currentPage}
-              totalUsersCount={this.props.totalUsersCount}
-              pageSize={this.props.pageSize}
-            />
+          <div className={styles.container}>
+            <div className={styles.containerUsers}>
+              <Users
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                users={this.props.users}
+                unfollow={this.props.unfollow}
+                follow={this.props.follow}
+                onPageChanged={this.onPageChanged}
+                isFetching={this.props.isFetching}
+              />
+            </div>
           </div>
         )}
       </div>
