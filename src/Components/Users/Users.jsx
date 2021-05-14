@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { unfollowApi, usersAPI } from "../../api/api";
 import styles from "./user.module.scss";
 
 let Users = (props) => {
@@ -29,7 +31,9 @@ let Users = (props) => {
             </div>
             <div>
               {u.followed ? (
-                <button className={styles.userFollow}
+                <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)}
+                  className={styles.userFollow}
                   onClick={() => {
                     props.unfollow(u.id);
                   }}
@@ -37,7 +41,9 @@ let Users = (props) => {
                   Unfollow
                 </button>
               ) : (
-                <button className={styles.userFollow}
+                <button
+                  disabled={props.followingInProgress.some((id) => id === u.id)}
+                  className={styles.userFollow}
                   onClick={() => {
                     props.follow(u.id);
                   }}

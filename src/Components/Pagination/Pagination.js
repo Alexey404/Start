@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./Pagination.module.scss";
 import ReactPaginate from "react-paginate";
 
@@ -7,7 +7,6 @@ let Pagination = (props) => {
 
   let onPage = (p) => {
     props.onPageChanged(p);
-    console.log(props.currentPage);
   };
 
   return (
