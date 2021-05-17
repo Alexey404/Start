@@ -1,13 +1,13 @@
-import React from "react";
-import style from "./Pagination.module.scss";
-import ReactPaginate from "react-paginate";
+import React from 'react'
+import style from './Pagination.module.scss'
+import ReactPaginate from 'react-paginate'
 
-let Pagination = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+let Pagination = props => {
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-  let onPage = (p) => {
-    props.onPageChanged(p);
-  };
+  let onPage = p => {
+    props.onPageChanged(p)
+  }
 
   return (
     <div className={style.pagination}>
@@ -16,7 +16,7 @@ let Pagination = (props) => {
         pageRangeDisplayed={6}
         marginPagesDisplayed={1}
         onPageChange={({ selected }) => {
-          onPage(selected + 1);
+          onPage(selected + 1)
         }}
         activeLinkClassName={style.active}
         pageLinkClassName={style.nav__link}
@@ -29,7 +29,7 @@ let Pagination = (props) => {
         breakClassName={style.Li}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

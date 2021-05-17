@@ -1,60 +1,46 @@
-import React from "react";
-import { connect } from "react-redux";
-import {
-  follow,
-  unfollow,
-  setCurrentPage,
-  toggleFollowingProgress,
-  getUsers,
-} from "../../Redux/users-reducer";
-import Users from "./Users";
-import styles from "./user.module.scss";
-import Preloader from "../Preloader/Preloader";
-import Pagination from "../Pagination/Pagination";
+import React from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import styles from './user.module.scss'
+import { follow, unfollow, getUsers } from '../../Redux/users-reducer'
+import Users from './Users'
+import withAuthRedirect from '../../hoc/withAuthRedirect'
+import Pagination from '../common/Pagination/Pagination'
+import Preloader from '../common/Preloader/Preloader'
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
-  onPageChanged = (p) => {
-    this.props.getUsers(p, this.props.pageSize);
-  };
+  onPageChanged = p => {
+    this.props.getUsers(p, this.props.pageSize)
+  }
 
   render() {
     return (
       <div>
         <Pagination
           onPageChanged={this.onPageChanged}
-          currentPage={this.props.currentPage}
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
         />
         {this.props.isFetching ? (
           <Preloader />
         ) : (
           <div className={styles.container}>
             <div className={styles.containerUsers}>
-              <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                users={this.props.users}
-                unfollow={this.props.unfollow}
-                follow={this.props.follow}
-                onPageChanged={this.onPageChanged}
-                isFetching={this.props.isFetching}
-                followingInProgress={this.props.followingInProgress}
-              />
+              <Users {...this.props} />
             </div>
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = state => {
   return {
     users: state.userPage.users,
     pageSize: state.userPage.pageSize,
@@ -62,12 +48,14 @@ let mapStateToProps = (state) => {
     currentPage: state.userPage.currentPage,
     isFetching: state.userPage.isFetching,
     followingInProgress: state.userPage.followingInProgress,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(UsersContainer);
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    getUsers,
+  }),
+  withAuthRedirect
+)(UsersContainer)

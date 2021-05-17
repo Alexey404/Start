@@ -1,8 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import style from "./header.module.scss";
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import style from './header.module.scss'
 
-let Header = (props) => {
+let Header = props => {
   return (
     <div className={style.header}>
       <div className={style.container}>
@@ -10,56 +10,57 @@ let Header = (props) => {
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/profile"
+            to='/profile'
           >
             Profile
           </NavLink>
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/users"
+            to='/users'
           >
             Users
           </NavLink>
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/dialogs"
+            to='/dialogs'
           >
             Messages
           </NavLink>
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/news"
+            to='/news'
           >
             News
           </NavLink>
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/music"
+            to='/music'
           >
             Music
           </NavLink>
           <NavLink
             className={style.nav__link}
             activeClassName={style.active}
-            to="/settings"
+            to='/settings'
           >
             Settings
           </NavLink>
-          {props.isAuth ? (
+          {console.log(props.resultCode)}
+          {props.resultCode === 0 ? (
             <div> {props.login}</div>
           ) : (
-            <NavLink className={style.nav__link} to="/login">
+            <NavLink className={style.nav__link} to='/login'>
               Login
             </NavLink>
           )}
         </nav>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

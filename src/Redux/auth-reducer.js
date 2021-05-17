@@ -1,11 +1,16 @@
-const SET_USER_DATA = "SET_USER_DATA";
+import { authAPI } from '../api/api'
+
+const SET_USER_DATA = 'SET_USER_DATA'
 
 let initialState = {
-  userId: null,
-  email: null,
-  login: null,
+  data: {
+    id: null,
+    login: null,
+    email: null,
+  },
+  resultCode: '1',
   isAuth: false,
-};
+}
 
 let authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,18 +18,29 @@ let authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export const setUserData = (id, email, login) => {
+///--------AC---------
+
+export const setUserData = data => {
   return {
     type: SET_USER_DATA,
-    data: { id, login, email },
-  };
-};
+    data,
+  }
+}
 
-export default authReducer;
+///-------Thunk---------
+
+export const getAuth = () => dispatch => {
+  authAPI.getAuthApi().then(response => {
+    let data = response.data
+    dispatch(setUserData(data))
+    console.log(data)
+  })
+}
+
+export default authReducer
