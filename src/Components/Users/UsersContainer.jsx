@@ -1,73 +1,69 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import styles from './user.module.scss'
+import { follow, unfollow, requestUsers } from '../../Redux/users-reducer'
+import Users from './Users'
+import withAuthRedirect from '../../hoc/withAuthRedirect'
+import Pagination from '../common/Pagination/Pagination'
 import {
-  follow,
-  unfollow,
-  setCurrentPage,
-  toggleFollowingProgress,
+  getPageSize,
+  getTotalUsersCount,
   getUsers,
-} from "../../Redux/users-reducer";
-import Users from "./Users";
-import styles from "./user.module.scss";
-import Preloader from "../Preloader/Preloader";
-import Pagination from "../Pagination/Pagination";
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+} from '../../Redux/users-selectors'
 
-class UsersContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+const UsersContainer = (props) => {
+  useEffect(() => {
+    props.requestUsers(props.currentPage, props.pageSize)
+    console.log('Robit')
+  }, [])
+
+  const onPageChanged = (p) => {
+    props.requestUsers(p, props.pageSize)
   }
 
-  onPageChanged = (p) => {
-    this.props.getUsers(p, this.props.pageSize);
-  };
-
-  render() {
-    return (
-      <div>
-        <Pagination
-          onPageChanged={this.onPageChanged}
-          currentPage={this.props.currentPage}
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-        />
-        {this.props.isFetching ? (
-          <Preloader />
-        ) : (
-          <div className={styles.container}>
-            <div className={styles.containerUsers}>
-              <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                users={this.props.users}
-                unfollow={this.props.unfollow}
-                follow={this.props.follow}
-                onPageChanged={this.onPageChanged}
-                isFetching={this.props.isFetching}
-                followingInProgress={this.props.followingInProgress}
-              />
-            </div>
-          </div>
-        )}
+  return (
+    <div>
+      <Pagination
+        onPageChanged={onPageChanged}
+        totalUsersCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+      />
+      <div className={styles.container}>
+        <div className={styles.containerUsers}>
+          <Users {...props} />
+        </div>
       </div>
-    );
-  }
+      <Pagination
+        onPageChanged={onPageChanged}
+        totalUsersCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+      />
+    </div>
+  )
 }
 
 let mapStateToProps = (state) => {
   return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUsersCount: state.userPage.totalUsersCount,
-    currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching,
-    followingInProgress: state.userPage.followingInProgress,
-  };
-};
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+  }
+}
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(UsersContainer);
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    requestUsers,
+  }),
+  withAuthRedirect
+)(UsersContainer)

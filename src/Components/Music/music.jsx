@@ -1,7 +1,6 @@
-import React from "react";
-import style from "./music.module.scss";
+import style from './music.module.scss'
 
-let Music = () => {
+const Music = () => {
   return (
     <div className={style.dialogs}>
       <div className={style.container}>
@@ -11,7 +10,7 @@ let Music = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Music;
+export default Music

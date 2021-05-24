@@ -1,8 +1,6 @@
-import React from "react";
-import style from "./news.module.scss";
+import style from './news.module.scss'
 
-
-let News = () => {
+const News = () => {
   return (
     <div className={style.dialogs}>
       <div className={style.container}>
@@ -12,7 +10,7 @@ let News = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default News;
+export default News

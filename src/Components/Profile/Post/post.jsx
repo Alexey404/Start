@@ -1,14 +1,13 @@
-import React from "react";
-import style from "../profile.module.scss";
+import style from '../profile.module.scss'
 
-let Post = (props) => {
+const Post = props => {
   return (
     <div className={style.item}>
-    {props.message}
-    <br/>
+      {props.message}
+      <br />
       <span>Like:{props.likesCount}</span>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

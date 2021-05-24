@@ -13,12 +13,12 @@
   flex-wrap: wrap;
   color: rgb(255, 255, 255);
 }
-.prealoader {
-  margin-top: 30%;
-}
 .prealoaderCont {
   width: 100%;
-  text-align: center;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .containerUsers {

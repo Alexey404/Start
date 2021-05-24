@@ -3,13 +3,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px 10px;
-  position: relative;
   font-size: 15px;
   color: #919191;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.4s;
-  font-family: "Myriad Set Pro Ultralight Кириллический";
+  font-family: 'Myriad Set Pro Ultralight Кириллический';
   border: 1px solid #444444;
   outline: none;
   background: none;
@@ -34,15 +33,12 @@ li::marker {
 }
 .container {
   display: flex;
-  margin: 0 auto;
-  width: 600px;
-  text-align: center;
-  align-items: center;
-  padding: 10px;
+  justify-content: center;
+  padding: 15px 0px;
+  margin: 0px;
 }
 .pagination {
   flex: 0 0 auto;
-  text-align: center;
 }
 .Of {
   display: none;

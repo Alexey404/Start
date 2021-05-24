@@ -1,35 +1,40 @@
-import React from "react";
-import Post from "../Post/post";
+import { Field, reduxForm } from 'redux-form'
+import { required, maxLenghtCreator } from '../../../utils/validators'
+import { Input } from '../../common/FormControls/FormsControls'
+import Post from '../Post/post'
 
-let MyPosts = (props) => {
-  let postsElement = props.posts.map((p) => (
+const maxLenght = maxLenghtCreator(10)
+
+const MyPosts = props => {
+  const onSubmit = formData => {
+    props.addPost(formData.Post)
+  }
+
+  const postsElement = props.posts.map(p => (
     <Post message={p.message} likesCount={p.likesCount} />
-  ));
-
-  let newPostElement = React.createRef();
-
-  let onAddPost = () => {
-    props.addPost();
-  };
-
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
-    props.updateNewPostText(text);
-  };
+  ))
 
   return (
     <div>
       <div>
-        <textarea
-          onChange={onPostChange}
-          ref={newPostElement}
-          value={props.newPostText}
-        />
-        <button onClick={onAddPost}>Add post</button>
-        {postsElement}
+        <LoginReduxForm onSubmit={onSubmit} />
       </div>
+      <div>{postsElement}</div>
     </div>
-  );
-};
+  )
+}
 
-export default MyPosts;
+const PostForm = props => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <Field name={'Post'} component={Input} validate={[required, maxLenght]} />
+      <button>Add post</button>
+    </form>
+  )
+}
+
+const LoginReduxForm = reduxForm({
+  form: 'login',
+})(PostForm)
+
+export default MyPosts

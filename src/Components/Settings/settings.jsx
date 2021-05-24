@@ -1,7 +1,6 @@
-import React from "react";
-import style from "./settings.module.scss";
+import style from './settings.module.scss'
 
-let Settings = () => {
+const Settings = () => {
   return (
     <div className={style.dialogs}>
       <div className={style.container}>
@@ -11,7 +10,7 @@ let Settings = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings
