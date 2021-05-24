@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import style from './header.module.scss'
@@ -66,65 +65,6 @@ const Header = props => {
               to='/music'
             >
               Music
-=======
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import style from './header.module.scss'
-
-let Header = props => {
-  return (
-    <div className={style.header}>
-      <div className={style.container}>
-        <nav className={style.nav}>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/profile'
-          >
-            Profile
-          </NavLink>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/users'
-          >
-            Users
-          </NavLink>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/dialogs'
-          >
-            Messages
-          </NavLink>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/news'
-          >
-            News
-          </NavLink>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/music'
-          >
-            Music
-          </NavLink>
-          <NavLink
-            className={style.nav__link}
-            activeClassName={style.active}
-            to='/settings'
-          >
-            Settings
-          </NavLink>
-          {console.log(props.resultCode)}
-          {props.resultCode === 0 ? (
-            <div> {props.login}</div>
-          ) : (
-            <NavLink className={style.nav__link} to='/login'>
-              Login
->>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
             </NavLink>
             <div>
               <ButtonHeaderName onClick={OnClick} activ={activ} color={color}>

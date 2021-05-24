@@ -5,19 +5,14 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const TOGLE_IS_FETCHING_LOGIN = 'TOGLE_IS_FETCHING_LOGIN'
 const TOGLE_IS_FETCHING_ALL = 'TOGLE_IS_FETCHING_ALL'
 
-type InitialStateType = {
-  data: { email: string | null; id: number | null; login: string | null }
-  resultCode: string
-  isAuth: boolean
-  isFetchingAll: boolean
-  isFetchingLogin: boolean
-}
-let initialState: InitialStateType = {
-  data: { email: null, id: 20, login: null },
-  resultCode: '1',
-  isAuth: false,
-  isFetchingAll: true,
-  isFetchingLogin: false,
+type InitialStateType = typeof initialState
+
+let initialState = {
+  data: { email: null as string | null, id: null as number | null, login: null as string | null },
+  resultCode: '1' as string,
+  isAuth: false as boolean,
+  isFetchingAll: true as boolean,
+  isFetchingLogin: false as boolean,
 }
 
 let authReducer = (state = initialState, action: any): InitialStateType => {

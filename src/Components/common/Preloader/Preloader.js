@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-import React from 'react'
->>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 import prealoader from './../../../assets/three-dots.svg'
 import styles from './../../Users/user.module.scss'
 

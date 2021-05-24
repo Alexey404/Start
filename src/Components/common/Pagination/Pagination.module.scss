@@ -3,16 +3,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px 10px;
-<<<<<<< HEAD:src/Components/common/Pagination/Pagination.module.scss
-=======
-
->>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1:src/Components/Pagination/Pagination.module.scss
   font-size: 15px;
   color: #919191;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.4s;
-  font-family: 'Myriad Set Pro Ultralight Кириллический';
+  font-family: "Myriad Set Pro Ultralight Кириллический";
   border: 1px solid #444444;
   outline: none;
   background: none;
@@ -38,13 +34,10 @@ li::marker {
 .container {
   display: flex;
   justify-content: center;
-<<<<<<< HEAD:src/Components/common/Pagination/Pagination.module.scss
   padding: 15px 0px;
   margin: 0px;
-=======
-  padding: 5px;
->>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1:src/Components/Pagination/Pagination.module.scss
 }
+
 .pagination {
   flex: 0 0 auto;
 }
