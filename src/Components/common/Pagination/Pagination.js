@@ -1,3 +1,7 @@
+<<<<<<< HEAD:src/Components/common/Pagination/Pagination.js
+=======
+import React from 'react'
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1:src/Components/Pagination/Pagination.js
 import style from './Pagination.module.scss'
 import ReactPaginate from 'react-paginate'
 

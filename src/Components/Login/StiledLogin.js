@@ -30,6 +30,10 @@ export const LoginFormStyled = styled.div`
   padding: 5px 10px;
   color: #a3a3a3;
   border: none;
+<<<<<<< HEAD
+=======
+  outline: none;
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   background-color: rgba(54, 54, 54, 0);
   margin-bottom: 15px;
   margin-left: 100px;
@@ -47,8 +51,11 @@ export const LoginBTNStyled = styled.button`
   border: 1px solid rgb(97, 97, 97);
   border-radius: 4px;
 `
+<<<<<<< HEAD
 export const FormError = styled.div`
   padding: 5px 10px;
   color: red;
   background-color: Transparent;
 `
+=======
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1

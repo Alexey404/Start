@@ -3,8 +3,11 @@ import { profileAPI } from '../api/api'
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+<<<<<<< HEAD
 const TOGLE_IS_FETCHING = 'TOGLE_IS_FETCHING'
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
+=======
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 
 let initialState = {
   posts: [
@@ -28,7 +31,10 @@ let initialState = {
     },
   },
   status: '',
+<<<<<<< HEAD
   isFetchingProfile: false,
+=======
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 }
 
 let profileReducer = (state = initialState, action) => {
@@ -38,10 +44,15 @@ let profileReducer = (state = initialState, action) => {
         message: action.text,
         likesCount: 0,
       }
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
       return {
         ...state,
         posts: [...state.posts, newPost],
       }
+<<<<<<< HEAD
     }
     case SET_STATUS: {
       return {
@@ -56,6 +67,14 @@ let profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos },
+=======
+    }
+
+    case SET_STATUS: {
+      return {
+        ...state,
+        status: action.status,
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
       }
     }
     case SET_USER_PROFILE: {
@@ -72,24 +91,37 @@ let profileReducer = (state = initialState, action) => {
 
 ///--------AC---------
 
+<<<<<<< HEAD
 export const addPost = (text) => {
+=======
+export const addPost = text => {
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   return {
     type: ADD_POST,
     text,
   }
 }
+<<<<<<< HEAD
 export const setUserProfile = (profile) => {
+=======
+export const setUserProfile = profile => {
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   return {
     type: SET_USER_PROFILE,
     profile,
   }
 }
+<<<<<<< HEAD
 export const setStatus = (status) => {
+=======
+export const setStatus = status => {
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   return {
     type: SET_STATUS,
     status,
   }
 }
+<<<<<<< HEAD
 export const setIsFetching = () => {
   return {
     type: TOGLE_IS_FETCHING,
@@ -124,6 +156,29 @@ export const updateStatus = (status) => async (dispatch) => {
   if (data.resultCode === 0) {
     dispatch(setStatus(status))
   }
+=======
+
+///--------Thunk---------
+
+export const getProfile = userId => dispatch => {
+  profileAPI.getProfileApi(userId).then(response => {
+    dispatch(setUserProfile(response.data))
+  })
+}
+
+export const getStatus = userId => dispatch => {
+  profileAPI.getStatus(userId).then(response => {
+    dispatch(setStatus(response.data))
+  })
+}
+export const updateStatus = status => dispatch => {
+  profileAPI.updateStatusApi(status).then(response => {
+    if (response.data.resultCode === 0) {
+      console.log(response.data.resultCode)
+      dispatch(setStatus(status))
+    }
+  })
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 }
 
 export default profileReducer

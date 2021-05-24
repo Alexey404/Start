@@ -10,6 +10,7 @@ export const usersAPI = {
   getUsers(currentPage, pageSize) {
     return instanse
       .get(`users?page=${currentPage}&count=${pageSize}`)
+<<<<<<< HEAD
       .then((response) => response.data)
   },
   unfollowApi(id) {
@@ -17,6 +18,15 @@ export const usersAPI = {
   },
   followApi(id) {
     return instanse.post(`follow/${id}`).then((response) => response.data)
+=======
+      .then(response => response.data)
+  },
+  unfollowApi(id) {
+    return instanse.delete(`follow/${id}`).then(response => response.data)
+  },
+  followApi(id) {
+    return instanse.post(`follow/${id}`).then(response => response.data)
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   },
 }
 
@@ -26,6 +36,7 @@ export const profileAPI = {
   },
   getStatus(userId) {
     return instanse.get(`profile/status/${userId}`)
+<<<<<<< HEAD
   },
   updateStatusApi(status) {
     return instanse.put(`profile/status`, { status })
@@ -39,10 +50,16 @@ export const profileAPI = {
         'Content-Type': 'multipart/form-data',
       },
     })
+=======
+  },  
+  updateStatusApi(status) {
+    return instanse.put(`profile/status`, { status })
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   },
 }
 export const authAPI = {
   getAuthApi() {
+<<<<<<< HEAD
     return instanse.get(`auth/me`).then((response) => response)
   },
   login(email, password, rememberMe = false) {
@@ -50,6 +67,9 @@ export const authAPI = {
   },
   logout() {
     return instanse.delete(`auth/login`)
+=======
+    return instanse.get(`auth/me`).then(response => response)
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
   },
 }
 

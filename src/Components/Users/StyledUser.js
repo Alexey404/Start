@@ -11,16 +11,22 @@ export const UserFollowContainer = styled.div``
 export const Name = styled.div`
   color: #a3a3a3;
   font-family: 'Myriad Set Pro Ultralight Кириллический';
+<<<<<<< HEAD
   text-align: center;
   width: 100px;
   height: 15px;
+=======
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 `
 export const StatusUserS = styled.div`
   margin-top: 30px;
   color: #a3a3a3;
   font-family: 'Myriad Set Pro Ultralight Кириллический';
+<<<<<<< HEAD
   width: 100px;
   height: 15px;
+=======
+>>>>>>> 5e5a38064b815b6bb33114e1c98dd42823ca3da1
 `
 
 export const UserFollow = styled.button`
