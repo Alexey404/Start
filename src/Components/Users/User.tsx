@@ -9,7 +9,21 @@ import {
 } from './StyledUser.js'
 import styles from './user.module.scss'
 
-const User = ({ user, unfollow, follow, followingInProgress, isFetching }) => {
+type Props = {
+  user: any
+  unfollow: (id: number) => void
+  follow: (id: number) => void
+  followingInProgress: Array<number>
+  isFetching: boolean
+}
+
+const User: React.FC<Props> = ({
+  user,
+  unfollow,
+  follow,
+  followingInProgress,
+  isFetching,
+}) => {
   return (
     <StyledItem>
       <div>
@@ -41,7 +55,9 @@ const User = ({ user, unfollow, follow, followingInProgress, isFetching }) => {
         {!isFetching ? (
           user.followed ? (
             <UserFollow
-              disabled={followingInProgress.some((id) => id === user.id)}
+              disabled={followingInProgress.some(
+                (id: number) => id === user.id
+              )}
               onClick={() => {
                 unfollow(user.id)
               }}
@@ -50,7 +66,9 @@ const User = ({ user, unfollow, follow, followingInProgress, isFetching }) => {
             </UserFollow>
           ) : (
             <UserFollow
-              disabled={followingInProgress.some((id) => id === user.id)}
+              disabled={followingInProgress.some(
+                (id: number) => id === user.id
+              )}
               onClick={() => {
                 follow(user.id)
               }}

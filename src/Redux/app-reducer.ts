@@ -19,8 +19,6 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
 
 ///--------AC---------
 
-///--------AC---------
-
 type OnClickAllACType = {
   type: typeof ON_CLICK_MODAL
 }

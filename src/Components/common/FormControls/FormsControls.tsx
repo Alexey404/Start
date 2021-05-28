@@ -1,16 +1,17 @@
 import { Field } from 'redux-form'
+import { FieldValidator } from '../../../utils/validators'
 import { InputStiled } from './FormControlsStyled'
 
-export const Input = props => {
-  let errorTouched =
+export const Input = (props: any) => {
+  const errorTouched =
     props.valideLogin === 'touched' ? props.meta.touched : undefined
 
-  let hasError =
+  const hasError =
     props.meta.error === 'Field is required'
       ? undefined
       : props.meta.error || errorTouched
 
-  let Color = hasError && errorTouched ? 'red' : ''
+  const Color = hasError && errorTouched ? 'red' : ''
 
   return (
     <div>
@@ -23,11 +24,11 @@ export const Input = props => {
 }
 
 export const CreateFilde = (
-  Placeholder,
-  name,
-  validators,
-  component,
-  props
+  Placeholder: string,
+  name: string | null,
+  validators: Array<FieldValidator> | null,
+  component: string | React.Component | React.FC,
+  props: any
 ) => (
   <div>
     <Field

@@ -3,7 +3,20 @@ import { NavLink } from 'react-router-dom'
 import style from './header.module.scss'
 import { ButtonHeaderName, DivNameActive } from './headerStyled'
 
-const Header = props => {
+type Props = {
+  resultCode: string
+  login: string | null
+  id: number | null
+  isAuth: boolean
+  clickAll: boolean
+  pageSize: number
+  currentPage: number
+  Logout: () => void
+  getProfile: (id: number | null) => void
+  getStatus: (id: number | null) => void
+}
+
+const Header: React.FC<Props> = props => {
   const [activProfile, setActivProfile] = useState(false)
   const [color, setColor] = useState('')
   const [activ, setActiv] = useState('')
@@ -22,12 +35,12 @@ const Header = props => {
     }
   }, [props.clickAll])
 
-  const OnClick = e => {
+  const OnClick = (e: any) => {
     e.stopPropagation()
     setActivProfile(!activProfile)
   }
 
-  const OnClickHed = e => {
+  const OnClickHed = (e: any) => {
     OnClick(e)
     props.getProfile(props.id)
     props.getStatus(props.id)
@@ -41,7 +54,7 @@ const Header = props => {
             <NavLink
               className={style.nav__link}
               activeClassName={style.active}
-              to='/users'
+              to={'/users/' + props.currentPage + '/' + props.pageSize}
             >
               Users
             </NavLink>
@@ -71,7 +84,7 @@ const Header = props => {
                 {props.login}
               </ButtonHeaderName>
               {!activProfile ? (
-                <DivNameActive onClick={e => e.stopPropagation()}>
+                <DivNameActive onClick={(e: any) => e.stopPropagation()}>
                   <div>
                     <NavLink
                       onClick={OnClickHed}
@@ -88,7 +101,7 @@ const Header = props => {
                   >
                     Settings
                   </NavLink>
-                  <div className={style.Profile} onClick={props.logout}>
+                  <div className={style.Profile} onClick={props.Logout}>
                     Logout
                   </div>
                 </DivNameActive>

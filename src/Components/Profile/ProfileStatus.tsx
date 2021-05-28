@@ -1,49 +1,56 @@
-import { useEffect } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { useState } from 'react'
 import { InputStiled } from '../common/FormControls/FormControlsStyled'
 import { StatusProfile } from './ProfileStaled'
 
-const ProfileStatus = props => {
+type Props = {
+  status: string
+  login: string | null
+  fullName: string
+  updateStatus: (Status: string) => void
+}
+
+const ProfileStatus: React.FC<Props> = ({
+  status,
+  login,
+  fullName,
+  updateStatus,
+}) => {
   const [editMode, setEditMode] = useState(false)
-  const [status, setStatus] = useState(props.status)
+  const [Status, setStatus] = useState(status)
 
   useEffect(() => {
-    setStatus(props.status)
-  }, [props.status])
+    setStatus(status)
+  }, [status])
 
   const activateEditMode = () => {
-    if (props.login === props.fullName) {
+    if (login === fullName) {
       setEditMode(true)
     }
   }
+
   const deactivateEditMode = () => {
     setEditMode(false)
-    if (status !== props.status) {
-      props.updateStatus(status)
+    if (Status !== status) {
+      updateStatus(Status)
     }
   }
 
-  const onStatusChange = e => {
+  const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value)
   }
 
   return (
     <StatusProfile>
-      {!editMode && (
-        <span
-          disabled={!props.login === props.fullName}
-          onDoubleClick={activateEditMode}
-        >
-          {props.status || 'No status'}
-        </span>
-      )}
-      {editMode && (
+      {!editMode ? (
+        <span onDoubleClick={activateEditMode}>{status || 'No status'}</span>
+      ) : (
         <div>
           <InputStiled
             onChange={onStatusChange}
             autoFocus={true}
             onBlur={deactivateEditMode}
-            value={status}
+            value={Status}
             fontSize={'22px'}
           />
         </div>

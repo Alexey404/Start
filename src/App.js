@@ -26,7 +26,7 @@ const Login = React.lazy(() => import('./Components/Login/Login'))
 const App = ({ OnClickAll, isFetchingAll, getAuth }) => {
   useEffect(() => {
     getAuth()
-  }, [])
+  }, [isFetchingAll])
   return (
     <div className='all' onClick={OnClickAll}>
       {isFetchingAll ? (
@@ -42,7 +42,10 @@ const App = ({ OnClickAll, isFetchingAll, getAuth }) => {
               />
               <Route exact path='/' render={withSuspense(Login)} />
               <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-              <Route path='/users' render={withSuspense(UsersContainer)} />
+              <Route
+                path='/users/:CurrentPage?/:PageSize?'
+                render={withSuspense(UsersContainer)}
+              />
               <Route path='/news' render={() => <NewsContainer />} />
               <Route path='/music' render={() => <MusicContiner />} />
               <Route path='/settings' render={() => <SettingsContainer />} />

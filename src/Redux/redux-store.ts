@@ -5,18 +5,25 @@ import dialogsReducer from './dilogs-reducer'
 import profileReducer from './profile-reducer'
 import userReducer from './users-reducer'
 import { reducer as formReducer } from 'redux-form'
-
 import appReducer from './app-reducer'
 
-let reducers = combineReducers({
+const reducers = combineReducers({
+  form: formReducer,
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   userPage: userReducer,
   auth: authReducer,
-  form: formReducer,
   app: appReducer,
 })
 
-let store = createStore(reducers, applyMiddleware(thunk))
+type ReducersType = typeof reducers
+export type AppStateType = ReturnType<ReducersType>
+
+type Properties<T> = T extends { [key: string]: infer U } ? U : never
+
+export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> =
+  ReturnType<Properties<T>>
+
+const store = createStore(reducers, applyMiddleware(thunk))
 
 export default store
