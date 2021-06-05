@@ -1,35 +1,29 @@
 import { ChangeEvent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { savePhoto } from '../../Redux/profile-reducer'
+import { AppStateType } from '../../Redux/redux-store'
 import { DivFullGray } from '../common/FormControls/FullGrayStyled'
 import {
+  InputUpload,
   NameProfile,
   ProfilePhoto,
-  ProfileStiled,
   ProfilePhotoCont,
-  InputUpload,
+  ProfileStiled,
 } from './ProfileStaled'
 import ProfileStatus from './ProfileStatus'
 
-type Props = {
-  profile: any
-  status: string
-  login: string | null
-  isFetchingProfile: boolean
-  updateStatus: (Status: string) => void
-  savePhoto: (files: any) => void
-}
+const ProfileInfo: React.FC = () => {
+  const { profile, isFetchingProfile } = useSelector(
+    (state: AppStateType) => state.profilePage
+  )
+  const { login } = useSelector((state: AppStateType) => state.auth.data)
 
-const ProfileInfo: React.FC<Props> = ({
-  profile,
-  status,
-  login,
-  isFetchingProfile,
-  updateStatus,
-  savePhoto,
-}) => {
-  const mainPhotoCelected = (e: any) => {
-    if (e.target.files.length) {
+  const dispatch = useDispatch()
+
+  const mainPhotoCelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
       const files = e.target.files[0]
-      savePhoto(files)
+      dispatch(savePhoto(files))
     }
   }
 
@@ -59,14 +53,7 @@ const ProfileInfo: React.FC<Props> = ({
       ) : undefined}
       <div>
         {Fetching(<NameProfile>{profile.fullName}</NameProfile>)}
-        {Fetching(
-          <ProfileStatus
-            status={status}
-            updateStatus={updateStatus}
-            fullName={profile.fullName}
-            login={login}
-          />
-        )}
+        {Fetching(<ProfileStatus />)}
       </div>
       <NameProfile>
         Looking for a job: {profile.lookingForAJob ? 'Yes' : 'No'}

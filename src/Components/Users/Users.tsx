@@ -1,31 +1,16 @@
+import { useSelector } from 'react-redux'
+import { getUsers } from '../../Redux/users-selectors'
 import User from './User'
 
-type Props = {
-  users: any
-  unfollow: (id: number) => void
-  follow: (id: number) => void
-  followingInProgress: any
-  isFetching: boolean
-}
+type Props = {}
 
-const Users: React.FC<Props> = ({
-  users,
-  unfollow,
-  follow,
-  followingInProgress,
-  isFetching,
-}) => {
+const Users: React.FC<Props> = () => {
+  const users = useSelector(getUsers)
+
   return (
     <div>
       {users.map((u: any) => (
-        <User
-          key={u.id}
-          user={u}
-          unfollow={unfollow}
-          followingInProgress={followingInProgress}
-          isFetching={isFetching}
-          follow={follow}
-        />
+        <User key={u.id} user={u} />
       ))}
     </div>
   )

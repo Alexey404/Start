@@ -1,34 +1,51 @@
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { AppStateType } from '../../Redux/redux-store.js'
+import { follow, unfollow } from '../../Redux/users-reducer'
 import { DivFullGray } from '../common/FormControls/FullGrayStyled.js'
 import {
   Name,
+  StatusUserS,
   StyledItem,
   UserFollow,
   UserFollowContainer,
-  StatusUserS,
 } from './StyledUser.js'
 import styles from './user.module.scss'
 
 type Props = {
   user: any
-  unfollow: (id: number) => void
-  follow: (id: number) => void
-  followingInProgress: Array<number>
-  isFetching: boolean
 }
 
-const User: React.FC<Props> = ({
-  user,
-  unfollow,
-  follow,
-  followingInProgress,
-  isFetching,
-}) => {
+const User: React.FC<Props> = ({ user }) => {
+  const { followingInProgress, isFetching } = useSelector(
+    (state: AppStateType) => state.userPage
+  )
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const Unfollow = (id: number) => {
+    dispatch(unfollow(id))
+  }
+  const Follow = (id: number) => {
+    dispatch(follow(id))
+  }
+
+  const Url = (id: any) => {
+    history.push({
+      pathname: `/profile`,
+      search: `?userId=${id}`,
+    })
+  }
+
   return (
     <StyledItem>
       <div>
         <div>
-          <NavLink to={'/profile/' + user.id}>
+          <div
+            onClick={() => {
+              Url(user.id)
+            }}
+          >
             <div className={styles.userPhoto}>
               {!isFetching ? (
                 <img
@@ -44,11 +61,18 @@ const User: React.FC<Props> = ({
                 <DivFullGray />
               )}
             </div>
-          </NavLink>
+          </div>
         </div>
       </div>
       <div>
-        <Name> {!isFetching ? user.name : <DivFullGray />}</Name>
+        <Name
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            Url(user.id)
+          }}
+        >
+          {!isFetching ? user.name : <DivFullGray />}
+        </Name>
         <StatusUserS>{!isFetching ? user.status : <DivFullGray />}</StatusUserS>
       </div>
       <UserFollowContainer>
@@ -59,7 +83,7 @@ const User: React.FC<Props> = ({
                 (id: number) => id === user.id
               )}
               onClick={() => {
-                unfollow(user.id)
+                Unfollow(user.id)
               }}
             >
               Unfollow
@@ -70,7 +94,7 @@ const User: React.FC<Props> = ({
                 (id: number) => id === user.id
               )}
               onClick={() => {
-                follow(user.id)
+                Follow(user.id)
               }}
             >
               Follow

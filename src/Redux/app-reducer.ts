@@ -1,15 +1,17 @@
-const ON_CLICK_MODAL = 'ON_CLICK_MODAL'
+import { InferActionsTypes } from './redux-store'
 
-type InitialStateType = {
-  clickAll: boolean
-}
-const initialState: InitialStateType = {
+const initialState = {
   clickAll: false,
 }
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+export type InitialStateType = typeof initialState
+
+const appReducer = (
+  state = initialState,
+  action: ActionsTypes
+): InitialStateType => {
   switch (action.type) {
-    case ON_CLICK_MODAL: {
+    case 'ON_CLICK_MODAL': {
       return { ...state, clickAll: !state.clickAll }
     }
     default:
@@ -19,14 +21,14 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
 
 ///--------AC---------
 
-type OnClickAllACType = {
-  type: typeof ON_CLICK_MODAL
-}
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-export const OnClickAll = (): OnClickAllACType => {
-  return {
-    type: ON_CLICK_MODAL,
-  }
+export const actions = {
+  OnClickAll: () => {
+    return {
+      type: 'ON_CLICK_MODAL',
+    } as const
+  },
 }
 
 ///-------Thunk---------

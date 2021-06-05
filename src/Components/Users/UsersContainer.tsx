@@ -1,122 +1,79 @@
-import React, { useEffect, useState } from 'react'
+import React, { ComponentType, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { withRouter } from 'react-router'
 import { compose } from 'redux'
-import { connect } from 'react-redux'
-import styles from './user.module.scss'
 import {
-  follow,
-  unfollow,
-  requestUsers,
-  setCurrentPage,
-} from '../../Redux/users-reducer'
-import Users from './Users'
-import withAuthRedirect from '../../hoc/withAuthRedirect'
-import Pagination from '../common/Pagination/Pagination'
-import {
-  getPageSize,
-  getTotalUsersCount,
-  getUsers,
-  getCurrentPage,
-  getIsFetching,
-  getFollowingInProgress,
-} from '../../Redux/users-selectors'
+  BooleanParam,
+  NumberParam,
+  StringParam,
+  useQueryParams,
+} from 'use-query-params'
+import withAuthRedirect, { WithAuthRedirect } from '../../hoc/withAuthRedirect'
 import { AppStateType } from '../../Redux/redux-store'
-import { useHistory, withRouter } from 'react-router'
+import { requestUsers } from '../../Redux/users-reducer'
+import Pagination from '../common/Pagination/Pagination'
+import styles from './user.module.scss'
+import Users from './Users'
+import UsersSearchForm from './UsersSearch'
 
-type MapStateProps = {
-  users: any
-  pageSize: number
-  totalUsersCount: number
-  isFetching: boolean
-  followingInProgress: Array<number>
-}
-type MapDispatchProps = {
-  follow: (id: number) => void
-  unfollow: (id: number) => void
-  requestUsers: (currentP: number, pSize: number) => void
-  setCurrentPage: (currentP: number) => void
-}
+const UseQueryParamsExample = () => {
+  const [query, setQuerys] = useQueryParams({
+    term: StringParam,
+    friends: StringParam,
+    СurrentPage: NumberParam,
+  })
+  const { СurrentPage, term, friends } = query
 
-type withRouterProps = {
-  match: { params: { CurrentPage: number; PageSize: number } }
-}
-
-type Props = MapStateProps & MapDispatchProps & withRouterProps
-
-const UsersContainer: React.FC<Props> = ({
-  totalUsersCount,
-  pageSize,
- 
-  users,
-  followingInProgress,
-  isFetching,
-  match: {
-    params: { CurrentPage, PageSize },
-  },
-  requestUsers,
-  follow,
-  unfollow,
-  setCurrentPage,
-}) => {
-  const router = useHistory()
-  const [CurrentPageLocal, setCurrentPageLocal] = useState(CurrentPage)
+  const { pageSize, totalUsersCount } = useSelector(
+    (state: AppStateType) => state.userPage
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    router.push(`/users/${CurrentPageLocal || 1}/${pageSize}`)
-    setCurrentPage(CurrentPageLocal)
-  }, [CurrentPageLocal])
+    dispatch({ type: 'SET_CURRENT_PAGE', currentPage: СurrentPage })
+  }, [СurrentPage])
 
   useEffect(() => {
-    requestUsers(CurrentPage, PageSize)
-    console.log('Запрос пошёл')
-    console.log(CurrentPage)
-  }, [CurrentPage])
+    dispatch(requestUsers(СurrentPage || 1, 10, term, friends))
+  }, [СurrentPage, term, friends])
+
+  const setCurrentPage = (num: number) => {
+    setQuerys({ СurrentPage: num })
+  }
+  const setFormick = (value: any) => {
+    setQuerys({ friends: value.friends === '' ? undefined : value.friends })
+
+    setQuerys({ term: value.term === '' ? undefined : value.term })
+
+    setQuerys({ СurrentPage: 1 })
+  }
 
   return (
     <div>
+      <UsersSearchForm onClickTerm={setFormick} />
       <Pagination
-        setCurrentPageLocal={setCurrentPageLocal}
+        setCurrentPage={setCurrentPage}
         totalUsersCount={totalUsersCount}
         pageSize={pageSize}
-        currentPage={CurrentPageLocal}
+        currentPage={СurrentPage}
       />
       <div className={styles.container}>
         <div className={styles.containerUsers}>
-          <Users
-            users={users}
-            follow={follow}
-            unfollow={unfollow}
-            followingInProgress={followingInProgress}
-            isFetching={isFetching}
-          />
+          <Users />
         </div>
       </div>
       <Pagination
-        setCurrentPageLocal={setCurrentPageLocal}
+        setCurrentPage={setCurrentPage}
         totalUsersCount={totalUsersCount}
         pageSize={pageSize}
-        currentPage={CurrentPageLocal}
+        currentPage={СurrentPage}
       />
     </div>
   )
 }
 
-const mapStateToProps = (state: AppStateType): MapStateProps => {
-  return {
-    users: getUsers(state),
-    pageSize: getPageSize(state),
-    totalUsersCount: getTotalUsersCount(state),
-    isFetching: getIsFetching(state),
-    followingInProgress: getFollowingInProgress(state),
-  }
-}
+const UsersContainer = React.memo(
+  compose<ComponentType>(WithAuthRedirect, withRouter)(UseQueryParamsExample)
+)
 
-export default compose(
-  connect<MapStateProps, MapDispatchProps, any, AppStateType>(mapStateToProps, {
-    follow,
-    unfollow,
-    requestUsers,
-    setCurrentPage,
-  }),
-  withAuthRedirect,
-  withRouter
-)(UsersContainer)
+export default UsersContainer

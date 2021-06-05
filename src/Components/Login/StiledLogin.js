@@ -23,7 +23,7 @@ export const LoginFormContStyled = styled.div`
   border: 1px solid rgb(97, 97, 97);
   border-radius: 5px;
   padding: 40px;
-  margin-top: 150px;
+  margin-top: 50px;
 `
 
 export const LoginFormStyled = styled.div`
@@ -32,7 +32,7 @@ export const LoginFormStyled = styled.div`
   border: none;
   background-color: rgba(54, 54, 54, 0);
   margin-bottom: 15px;
-  margin-left: 100px;
+  margin-left: 50px;
   display: flex;
   justify-content: center;
 `

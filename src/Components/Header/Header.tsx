@@ -1,117 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import style from './header.module.scss'
-import { ButtonHeaderName, DivNameActive } from './headerStyled'
+import { Col, Row } from 'antd'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Logout } from '../../Redux/auth-reducer'
+import { AppStateType } from '../../Redux/redux-store'
 
-type Props = {
-  resultCode: string
-  login: string | null
-  id: number | null
-  isAuth: boolean
-  clickAll: boolean
-  pageSize: number
-  currentPage: number
-  Logout: () => void
-  getProfile: (id: number | null) => void
-  getStatus: (id: number | null) => void
-}
+const HEader: React.FC = () => {
+  const { isAuth } = useSelector((state: AppStateType) => state.auth)
+  const dispatch = useDispatch()
 
-const Header: React.FC<Props> = props => {
-  const [activProfile, setActivProfile] = useState(false)
-  const [color, setColor] = useState('')
-  const [activ, setActiv] = useState('')
-
-  useEffect(() => {
-    setColor(activProfile ? '' : 'black')
-    setActiv(activProfile ? '' : 'a3a3a3')
-  }, [activProfile])
-
-  useEffect(() => {
-    if (props.clickAll) {
-      setActivProfile(props.clickAll)
-    }
-    if (!props.clickAll) {
-      setActivProfile(!props.clickAll)
-    }
-  }, [props.clickAll])
-
-  const OnClick = (e: any) => {
-    e.stopPropagation()
-    setActivProfile(!activProfile)
-  }
-
-  const OnClickHed = (e: any) => {
-    OnClick(e)
-    props.getProfile(props.id)
-    props.getStatus(props.id)
+  const LogOut = () => {
+    dispatch(Logout())
+    console.log('Что то робит')
   }
 
   return (
-    <div className={style.header}>
-      {props.isAuth ? (
-        <div className={style.container}>
-          <nav className={style.nav}>
-            <NavLink
-              className={style.nav__link}
-              activeClassName={style.active}
-              to={'/users/' + props.currentPage + '/' + props.pageSize}
-            >
-              Users
-            </NavLink>
-            <NavLink
-              className={style.nav__link}
-              activeClassName={style.active}
-              to='/dialogs'
-            >
-              Messages
-            </NavLink>
-            <NavLink
-              className={style.nav__link}
-              activeClassName={style.active}
-              to='/news'
-            >
-              News
-            </NavLink>
-            <NavLink
-              className={style.nav__link}
-              activeClassName={style.active}
-              to='/music'
-            >
-              Music
-            </NavLink>
-            <div>
-              <ButtonHeaderName onClick={OnClick} activ={activ} color={color}>
-                {props.login}
-              </ButtonHeaderName>
-              {!activProfile ? (
-                <DivNameActive onClick={(e: any) => e.stopPropagation()}>
-                  <div>
-                    <NavLink
-                      onClick={OnClickHed}
-                      className={style.Profile}
-                      to={'/profile/' + props.id}
-                    >
-                      Profile
-                    </NavLink>
-                  </div>
-                  <NavLink
-                    onClick={OnClick}
-                    className={style.Profile}
-                    to='/settings'
-                  >
-                    Settings
-                  </NavLink>
-                  <div className={style.Profile} onClick={props.Logout}>
-                    Logout
-                  </div>
-                </DivNameActive>
-              ) : undefined}
-            </div>
-          </nav>
-        </div>
-      ) : undefined}
-    </div>
+    <Row>
+      <Col span={20}>
+        <div className='logo' />
+        <Link to='/news'>logo</Link>
+      </Col>
+      {!isAuth ? (
+        ''
+      ) : (
+        <Col span={1}>
+          <Link onClick={LogOut} style={{ color: 'white' }} to={undefined}>
+            Logout
+          </Link>
+        </Col>
+      )}
+    </Row>
   )
 }
 
-export default Header
+export default HEader

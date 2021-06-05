@@ -1,28 +1,28 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
+import { getProfile, getStatus } from '../../Redux/profile-reducer'
+import { parses } from '../../utils/parse'
 import MyPostsContainer from './MyPosts/MyPostContainer'
 import style from './profile.module.scss'
 import ProfileInfo from './profileInfo'
 
-type Props = {
-  profile: any
-  status: string
-  login: string | null
-  isFetchingProfile: boolean
-  updateStatus: (Status: string) => void
-  savePhoto: (files: any) => void
-}
+const Profile: React.FC = () => {
+  const search = useHistory().location.search
 
-const Profile: React.FC<Props> = props => {
+  useEffect(() => {
+    const id = parses(search)
+    console.log(id)
+    dispatch(getProfile(id))
+    dispatch(getStatus(id))
+  }, [search])
+
+  const dispatch = useDispatch()
+
   return (
     <div className={style.profile}>
       <div className={style.container}>
-        <ProfileInfo
-          profile={props.profile}
-          status={props.status}
-          updateStatus={props.updateStatus}
-          login={props.login}
-          isFetchingProfile={props.isFetchingProfile}
-          savePhoto={props.savePhoto}
-        />
+        <ProfileInfo />
         <MyPostsContainer />
       </div>
     </div>

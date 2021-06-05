@@ -1,8 +1,7 @@
+import { FormAction, stopSubmit } from 'redux-form'
 import { ResultCode } from '../api/api'
-import { ThunkAction } from 'redux-thunk'
-import { AppStateType, InferActionsTypes } from './redux-store'
-import { stopSubmit } from 'redux-form'
 import { authAPI } from '../api/auth-api'
+import { BaseThankType, InferActionsTypes } from './redux-store'
 
 type InitialStateType = typeof initialState
 
@@ -71,7 +70,7 @@ export const actions = {
 }
 
 ///-------Thunk---------
-type Thank = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
+type Thank = BaseThankType<ActionsTypes | FormAction>
 
 export const getAuth = (): Thank => async dispatch => {
   const meData = await authAPI.getAuthApi()
@@ -96,6 +95,7 @@ export const loginAuth =
   }
 
 export const Logout = (): Thank => async dispatch => {
+  console.log('и тут что то робит')
   const response = await authAPI.logout()
   if (response.data.resultCode === ResultCode.Sucsses) {
     dispatch(actions.setUserData(null, null, null, false))

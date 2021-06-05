@@ -1,19 +1,22 @@
-import React from 'react'
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import reportWebVitals from './reportWebVitals'
-import store from './Redux/redux-store'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { QueryParamProvider } from 'use-query-params'
+import App from './App'
+import './index.css'
+import store from './Redux/redux-store'
+import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>
+    <QueryParamProvider ReactRouterRoute={Route}>
+      <StrictMode>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </StrictMode>
+    </QueryParamProvider>
   </BrowserRouter>,
   document.getElementById('root')
 )

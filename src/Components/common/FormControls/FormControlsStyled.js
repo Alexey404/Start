@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const InputStiled = styled.input`
   border: 1px solid ${props => props.color || 'rgb(107, 107, 107)'};
-
   color: #a3a3a3;
   font-family: 'Myriad Set Pro Ultralight Кириллический';
   outline: none;

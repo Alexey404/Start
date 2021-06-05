@@ -1,11 +1,12 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux'
+import { reducer as formReducer } from 'redux-form'
+import thunk, { ThunkAction } from 'redux-thunk'
+import appReducer from './app-reducer'
 import authReducer from './auth-reducer'
+import chatReduser from './chat-reduser'
 import dialogsReducer from './dilogs-reducer'
 import profileReducer from './profile-reducer'
 import userReducer from './users-reducer'
-import { reducer as formReducer } from 'redux-form'
-import appReducer from './app-reducer'
 
 const reducers = combineReducers({
   form: formReducer,
@@ -14,15 +15,24 @@ const reducers = combineReducers({
   userPage: userReducer,
   auth: authReducer,
   app: appReducer,
+  chat: chatReduser,
 })
 
 type ReducersType = typeof reducers
 export type AppStateType = ReturnType<ReducersType>
 
-type Properties<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsTypes<T> = T extends {
+  [keys: string]: (...args: any[]) => infer U
+}
+  ? U
+  : never
 
-export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> =
-  ReturnType<Properties<T>>
+export type BaseThankType<A extends Action, R = Promise<void>> = ThunkAction<
+  R,
+  AppStateType,
+  unknown,
+  A
+>
 
 const store = createStore(reducers, applyMiddleware(thunk))
 

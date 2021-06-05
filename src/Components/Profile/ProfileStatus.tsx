@@ -1,23 +1,21 @@
-import { ChangeEvent, useEffect } from 'react'
-import { useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateStatus } from '../../Redux/profile-reducer'
+import { AppStateType } from '../../Redux/redux-store'
 import { InputStiled } from '../common/FormControls/FormControlsStyled'
 import { StatusProfile } from './ProfileStaled'
 
-type Props = {
-  status: string
-  login: string | null
-  fullName: string
-  updateStatus: (Status: string) => void
-}
+const ProfileStatus: React.FC = () => {
+  const { status } = useSelector((state: AppStateType) => state.profilePage)
+  const { login } = useSelector((state: AppStateType) => state.auth.data)
+  const { fullName } = useSelector(
+    (state: AppStateType) => state.profilePage.profile
+  )
 
-const ProfileStatus: React.FC<Props> = ({
-  status,
-  login,
-  fullName,
-  updateStatus,
-}) => {
   const [editMode, setEditMode] = useState(false)
   const [Status, setStatus] = useState(status)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setStatus(status)
@@ -32,7 +30,7 @@ const ProfileStatus: React.FC<Props> = ({
   const deactivateEditMode = () => {
     setEditMode(false)
     if (Status !== status) {
-      updateStatus(Status)
+      dispatch(updateStatus(Status))
     }
   }
 

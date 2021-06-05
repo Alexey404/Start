@@ -7,14 +7,19 @@ import style from './dialogs.module.scss'
 
 const maxLenght = maxLenghtCreator(20)
 
-const Dialogs = props => {
-  let state = props.state
-  const onSubmit = values => {
+type Props = {
+  state: any
+  sendMessage(EnterMessege: any): void
+}
+
+const Dialogs: React.FC<Props> = props => {
+  const state = props.state
+  const onSubmit = (values: any) => {
     props.sendMessage(values.EnterMessege)
   }
 
-  const dialogsElements = state.dialogsData.map(d => (
-    <DialogItem name={d.name} key={d.id} />
+  const dialogsElements = state.dialogsData.map((d: any) => (
+    <DialogItem name={d.name} key={d.id} id={d.id} />
   ))
 
   return (
@@ -29,8 +34,16 @@ const Dialogs = props => {
   )
 }
 
-const AddMessageForm = props => {
-  const messagesElements = props.state.messages.map(m => (
+type LoginFrmValue = {
+  EnterMessege: string
+}
+
+type IProps = {
+  state: any
+}
+
+const AddMessageForm = (props: any) => {
+  const messagesElements = props.state.messages.map((m: any) => (
     <Message message={m.message} key={m.id} />
   ))
   return (
@@ -53,7 +66,7 @@ const AddMessageForm = props => {
   )
 }
 
-const MessageReduxForm = reduxForm({
+const MessageReduxForm = reduxForm<LoginFrmValue, IProps>({
   form: 'messedge',
 })(AddMessageForm)
 
