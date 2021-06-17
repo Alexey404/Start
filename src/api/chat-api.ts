@@ -3,7 +3,7 @@ import { Status } from '../Redux/chat-reduser'
 type subcriberType = ((messages: ChatMessege[]) => void) | null
 type StatusChanged = (status: Status) => void
 
-type EventsName = 'messeges-received' | 'status-changed'
+type EventsName = 'messeges-received' | 'status-changed' | 'messeges-clear'
 
 export type ChatMessege = {
   messeage: string
@@ -13,6 +13,7 @@ export type ChatMessege = {
 }
 const cubcribers = {
   'messeges-received': [] as subcriberType[],
+  'messeges-clear': [] as StatusChanged[],
   'status-changed': [] as StatusChanged[],
 }
 
@@ -20,12 +21,17 @@ let Ws: WebSocket | null = null
 
 const onMessegHandler = (e: MessageEvent) => {
   const newMessages = JSON.parse(e.data)
-  console.log(cubcribers['status-changed'])
   //@ts-ignore
   cubcribers['messeges-received'].forEach(s => s(newMessages))
 }
+const offMessegHandler = () => {
+  cubcribers['messeges-received'] = []
+  cubcribers['status-changed'] = []
+  cubcribers['messeges-clear']=[]
+}
 
 const openHandler = () => {
+  cubcribers['messeges-clear'].forEach(s => s('ready'))
   notifySubscribersAboutStatus('ready')
 }
 
@@ -48,19 +54,18 @@ const cleanUp = () => {
   Ws?.removeEventListener('message', onMessegHandler)
   Ws?.removeEventListener('open', openHandler)
   Ws?.removeEventListener('error', errorHandler)
-  Ws?.close()
 }
 
 const createChennel = () => {
+  Ws?.close()
   cleanUp()
   Ws = new WebSocket(
     'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'
   )
-  Ws.addEventListener('open', openHandler)
   notifySubscribersAboutStatus('pending')
+  Ws.addEventListener('open', openHandler)
   Ws.addEventListener('close', closeHendler)
   Ws.addEventListener('message', onMessegHandler)
-
   Ws.addEventListener('error', errorHandler)
 }
 
@@ -69,9 +74,9 @@ export const chatAPI = {
     createChennel()
   },
   stop() {
-    cubcribers['messeges-received'] = []
-    cubcribers['status-changed'] = []
+    offMessegHandler()
     cleanUp()
+    Ws?.close()
   },
   subscribe(eventName: EventsName, callback: subcriberType | StatusChanged) {
     //@ts-ignore

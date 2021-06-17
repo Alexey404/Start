@@ -11,7 +11,6 @@ export const ProfileStiled = styled.div`
   border-radius: 7px;
   margin: 10px;
 `
-
 export const ProfilePhotoCont = styled.div`
   width: 200px;
   height: 200px;

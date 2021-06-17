@@ -33,6 +33,7 @@ const dialogsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case 'SEND_MESSAGE': {
+      console.log('robit')
       return {
         ...state,
         messages: [...state.messages, { id: 4, message: action.body }],
@@ -50,7 +51,7 @@ export const actions = {
     return {
       type: 'SEND_MESSAGE',
       body,
-    }as const
+    } as const
   },
 }
 

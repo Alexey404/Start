@@ -1,6 +1,3 @@
-export const parses = search => {
-  const id = parseInt(search.match(/\d+/))
-  console.log(search)
-  console.log(id)
-  return id
+export const parses = string => {
+  return parseInt(string.match(/\d+/))
 }

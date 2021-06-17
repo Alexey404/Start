@@ -12,7 +12,6 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const id = parses(search)
-    console.log(id)
     dispatch(getProfile(id))
     dispatch(getStatus(id))
   }, [search])

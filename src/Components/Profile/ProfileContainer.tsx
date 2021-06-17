@@ -1,8 +1,8 @@
 import React from 'react'
-import Profile from './profile'
+import UseQueryParamsExampleProfile from './profile'
 
 const ProfileContainer: React.FC = () => {
-  return <Profile />
+  return <UseQueryParamsExampleProfile />
 }
 
 export default ProfileContainer

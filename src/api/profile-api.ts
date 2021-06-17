@@ -2,10 +2,10 @@ import { Photos, ProfileType } from '../Redux/profile-reducer'
 import { instanse, APIResponseType } from './api'
 
 export const profileAPI = {
-  getProfileApi(userId: number) {
+  getProfileApi(userId: number | null | undefined) {
     return instanse.get<ProfileType>(`profile/${userId}`).then(res => res.data)
   },
-  getStatus(userId: number) {
+  getStatus(userId: number | null | undefined) {
     return instanse
       .get<string>(`profile/status/${userId}`)
       .then(res => res.data)

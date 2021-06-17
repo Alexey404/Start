@@ -11,7 +11,6 @@ const HEader: React.FC = () => {
 
   const LogOut = () => {
     dispatch(Logout())
-    console.log('Что то робит')
   }
 
   return (
@@ -24,9 +23,9 @@ const HEader: React.FC = () => {
         ''
       ) : (
         <Col span={1}>
-          <Link onClick={LogOut} style={{ color: 'white' }} to={undefined}>
+          <span onClick={LogOut} style={{ color: 'white', cursor: 'pointer' }}>
             Logout
-          </Link>
+          </span>
         </Col>
       )}
     </Row>

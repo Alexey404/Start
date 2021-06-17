@@ -30,7 +30,7 @@ const User: React.FC<Props> = ({ user }) => {
     dispatch(follow(id))
   }
 
-  const Url = (id: any) => {
+  const Url = (id: number) => {
     history.push({
       pathname: `/profile`,
       search: `?userId=${id}`,

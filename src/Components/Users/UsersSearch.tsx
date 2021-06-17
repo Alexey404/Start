@@ -1,18 +1,17 @@
-import { Button } from 'antd'
 import { Field, Form, Formik } from 'formik'
+import React, { useCallback } from 'react'
 import { DisplayFlex } from '../common/FormControls/displayFlex'
-import { UserFollow } from './StyledUser'
 
 type UsersSearchType = {
   term: string | null | undefined
   friends: string | null | undefined
 }
 
-const UsersSearchForm = ({ onClickTerm }: any) => {
+const UsersSearchForm = React.memo(({ onClickTerm }: any) => {
   const submit = (values: UsersSearchType) => {
     onClickTerm(values)
-    console.log(values)
   }
+
   return (
     <Formik initialValues={{ term: '', friends: '' }} onSubmit={submit}>
       <Form>
@@ -28,6 +27,5 @@ const UsersSearchForm = ({ onClickTerm }: any) => {
       </Form>
     </Formik>
   )
-}
-
+})
 export default UsersSearchForm

@@ -1,52 +1,42 @@
-import { Field, InjectedFormProps, reduxForm } from 'redux-form'
-import { PostsType } from '../../../Redux/profile-reducer'
-import { required, maxLenghtCreator } from '../../../utils/validators'
-import { Input } from '../../common/FormControls/FormsControls'
+import { Field, Form, Formik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppStateType } from '../../../Redux/redux-store'
 import Post from '../Post/post'
 
-const maxLenght = maxLenghtCreator(10)
+const MyPosts: React.FC = () => {
+  const { posts } = useSelector((state: AppStateType) => state.profilePage)
 
-type Props = {
-  addPost: (Post: string) => void
-  posts: Array<PostsType>
-}
-
-const MyPosts: React.FC<Props> = ({ addPost, posts }) => {
-  const onSubmit = (formData: LoginFrmValue) => {
-    addPost(formData.Post)
-  }
-
-  const postsElement = posts.map((posts: any) => (
-    <Post message={posts.message} likesCount={posts.likesCount} />
+  const postsElement = posts.map((posts: any, index: number) => (
+    <Post key={index} message={posts.message} likesCount={posts.likesCount} />
   ))
 
   return (
     <div>
       <div>
-        <LoginReduxForm onSubmit={onSubmit} />
+        <PostForm />
       </div>
       <div>{postsElement}</div>
     </div>
   )
 }
-type LoginFrmValue = {
-  Post: string
-}
-type IProps = {}
 
-const PostForm: React.FC<InjectedFormProps<LoginFrmValue, IProps> & IProps> = ({
-  handleSubmit,
-}) => {
+const PostForm: React.FC = () => {
+  const dispatch = useDispatch()
+
+  const submit = (value: any) => {
+    dispatch({
+      type: 'ADD-POST',
+      text: value.Post,
+    })
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <Field name={'Post'} component={Input} validate={[required, maxLenght]} />
-      <button>Add post</button>
-    </form>
+    <Formik initialValues={{ Post: '' }} onSubmit={submit}>
+      <Form>
+        <Field type='text' name='Post' />
+        <button type='submit'>Add post</button>
+      </Form>
+    </Formik>
   )
 }
-
-const LoginReduxForm = reduxForm<LoginFrmValue, IProps>({
-  form: 'login',
-})(PostForm)
 
 export default MyPosts

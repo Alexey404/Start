@@ -1,13 +1,8 @@
-import style from './Pagination.module.scss'
+import React from 'react'
 import ReactPaginate from 'react-paginate'
+import style from './Pagination.module.scss'
 
-const Pagination = ({
-  totalUsersCount,
-  pageSize,
-  setCurrentPage,
-  currentPage,
-}) => {
-  const pagesCount = Math.ceil(totalUsersCount / pageSize)
+const Pagination = ({ pagesCount, setCurrentPage, currentPage }) => {
 
   return (
     <div className={style.pagination}>
@@ -33,4 +28,4 @@ const Pagination = ({
   )
 }
 
-export default Pagination
+export default React.memo(Pagination)

@@ -4,7 +4,7 @@
   margin-bottom: 10px;
   padding: 5px 10px;
   font-size: 15px;
-  color: #919191;
+  color: #7e7e7e;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.4s;
@@ -15,14 +15,14 @@
   cursor: pointer;
 
   &:hover {
-    color: #e0e0e0;
+    color: #3a3a3a;
   }
 }
 .Li {
   margin: 0px 3px;
 }
 .active {
-  color: #ffffff;
+  color: #000000;
 
   &:hover {
     color: #e0e0e0;

@@ -1,25 +1,17 @@
-import { Field, reduxForm } from 'redux-form'
-import { maxLenghtCreator, required } from '../../utils/validators'
-import { Input } from '../common/FormControls/FormsControls'
+import { Field, Form, Formik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppStateType } from '../../Redux/redux-store'
 import DialogItem from './dialogItem/dialogItem'
 import Message from './dialogItem/message'
 import style from './dialogs.module.scss'
 
-const maxLenght = maxLenghtCreator(20)
+const Dialogs: React.FC = () => {
+  const { dialogsData } = useSelector(
+    (state: AppStateType) => state.dialogsPage
+  )
 
-type Props = {
-  state: any
-  sendMessage(EnterMessege: any): void
-}
-
-const Dialogs: React.FC<Props> = props => {
-  const state = props.state
-  const onSubmit = (values: any) => {
-    props.sendMessage(values.EnterMessege)
-  }
-
-  const dialogsElements = state.dialogsData.map((d: any) => (
-    <DialogItem name={d.name} key={d.id} id={d.id} />
+  const dialogsElements = dialogsData.map((d: any, index: number) => (
+    <DialogItem name={d.name} key={index} id={d.id} />
   ))
 
   return (
@@ -27,47 +19,44 @@ const Dialogs: React.FC<Props> = props => {
       <div className={style.container}>
         <div className={style.dialogss}>
           <div className={style.dialogsItems}>{dialogsElements}</div>
-          <MessageReduxForm state={props.state} onSubmit={onSubmit} />
+          <AddMessageForm />
         </div>
       </div>
     </div>
   )
 }
 
-type LoginFrmValue = {
-  EnterMessege: string
-}
+const AddMessageForm = () => {
+  const { messages } = useSelector((state: AppStateType) => state.dialogsPage)
+  const dispatch = useDispatch()
 
-type IProps = {
-  state: any
-}
+  const onSubmit = (values: any) => {
+    console.log(values)
+    dispatch({ type: 'SEND_MESSAGE', body: values.EnterMessege })
+  }
 
-const AddMessageForm = (props: any) => {
-  const messagesElements = props.state.messages.map((m: any) => (
-    <Message message={m.message} key={m.id} />
+  const messagesElements = messages.map((m: any, index: number) => (
+    <Message message={m.message} key={index} />
   ))
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div className={style.messeges}>
-        <div>
-          <div>{messagesElements}</div>
-          <Field
-            name={'EnterMessege'}
-            placeholder={'Enter your messege'}
-            component={Input}
-            validate={[required, maxLenght]}
-          />
+    <Formik initialValues={{ EnterMessege: '' }} onSubmit={onSubmit}>
+      <Form>
+        <div className={style.messeges}>
+          <div>
+            <div>{messagesElements}</div>
+            <Field
+              name={'EnterMessege'}
+              placeholder={'Enter your messege'}
+              component={'input'}
+            />
+          </div>
+          <div>
+            <button type='submit'>Send</button>
+          </div>
         </div>
-        <div>
-          <button>Send</button>
-        </div>
-      </div>
-    </form>
+      </Form>
+    </Formik>
   )
 }
-
-const MessageReduxForm = reduxForm<LoginFrmValue, IProps>({
-  form: 'messedge',
-})(AddMessageForm)
 
 export default Dialogs

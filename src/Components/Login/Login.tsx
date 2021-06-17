@@ -1,99 +1,52 @@
-import { connect } from 'react-redux'
-import { InjectedFormProps, reduxForm } from 'redux-form'
-import {
-  maxLenghtCreator,
-  minLenghtCreator,
-  required,
-} from '../../utils/validators'
-import { CreateFilde, Input } from '../common/FormControls/FormsControls'
-import {
-  LoginFormStyled,
-  LoginFormContStyled,
-  LoginBTNStyled,
-  FormError,
-} from './StiledLogin'
-import { loginAuth } from '../../Redux/auth-reducer'
+import { Field, Form, Formik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
+import { loginAuth } from '../../Redux/auth-reducer'
 import { AppStateType } from '../../Redux/redux-store'
+import { LoginFormContStyled, LoginFormStyled } from './StiledLogin'
 
-const maxLenght = maxLenghtCreator(20)
-const minLenght = minLenghtCreator(5)
+const Login: React.FC = () => {
+  const { isAuth } = useSelector((state: AppStateType) => state.auth)
 
-type MapStateProps = {
-  isAuth: boolean
-  isFetchingLogin: boolean
-}
-type MapDispatchProps = {
-  loginAuth: (email: string, password: string, rememberMe: boolean) => void
-}
-
-type LoginFrmValue = {
-  Login: string
-  Password: string
-  checkbox: boolean
-}
-
-type IProps = {
-  isFetchingLogin: boolean
-}
-
-const Login: React.FC<MapStateProps & MapDispatchProps> = props => {
-  const onSubmit = (formData: LoginFrmValue) => {
-    props.loginAuth(formData.Login, formData.Password, formData.checkbox)
-  }
-
-  if (props.isAuth) {
+  if (isAuth) {
     return <Redirect to='/news' />
   }
   return (
     <LoginFormStyled>
       <LoginFormContStyled>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit} {...props} />
+        <LoginForm />
       </LoginFormContStyled>
     </LoginFormStyled>
   )
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFrmValue, IProps> & IProps> =
-  ({ handleSubmit, error, isFetchingLogin }) => {
-    return (
-      <form onSubmit={handleSubmit}>
-        {CreateFilde(
-          'Login',
-          'Login',
-          [required, maxLenght, minLenght],
-          Input,
-          {
-            valideLogin: 'touched',
-          }
-        )}
-        {CreateFilde(
-          'Password',
-          'Password',
-          [required, maxLenght, minLenght],
-          Input,
-          { type: 'password', valideLogin: 'touched' }
-        )}
-        <div>
-          {CreateFilde('checkbox', null, null, 'input', { type: 'checkbox' })}
-          Remember me
-        </div>
-        {error && <FormError>{error}</FormError>}
-        <div>
-          <LoginBTNStyled disabled={isFetchingLogin}>Login</LoginBTNStyled>
-        </div>
-      </form>
-    )
+const LoginForm: React.FC = () => {
+  const { isFetchingLogin } = useSelector((state: AppStateType) => state.auth)
+  const dispatch = useDispatch()
+
+  const submit = (values: any) => {
+    dispatch(loginAuth(values.Login, values.Password, values.checkbox))
   }
 
-const mapStateToPropsForRedirect = (state: AppStateType): MapStateProps => ({
-  isAuth: state.auth.isAuth,
-  isFetchingLogin: state.auth.isFetchingLogin,
-})
+  return (
+    <Formik
+      initialValues={{ Login: '', Password: '', checkbox: '' }}
+      onSubmit={submit}
+    >
+      <Form>
+        <Field type='Login' name='Login' component={'input'} />
+        <Field type='Password' name='Password' component={'input'} />
+        <div>
+          <Field type='checkbox' name='checkbox' />
+          Remember me
+        </div>
+        <button disabled={isFetchingLogin} type='submit'>
+          Login
+        </button>
+      </Form>
+    </Formik>
+  )
+}
 
-const LoginReduxForm = reduxForm<LoginFrmValue, IProps>({
-  form: 'login',
-})(LoginForm)
-
-export default connect(mapStateToPropsForRedirect, { loginAuth })(Login)
+export default Login

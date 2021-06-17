@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { ChatMessege } from '../../api/chat-api'
 import {
   sendMessage,
   startMessagesListening,
@@ -27,9 +26,13 @@ const Chat = () => {
     }
   }, [])
 
+  const color = status === 'ready' ? 'green' : 'red'
+
   return (
     <div>
-      <div>{status}</div>
+      <div style={{ background: color, width: '60px', textAlign: 'center' }}>
+        {status}
+      </div>
       <Messeges />
       <AddMessege />
     </div>
@@ -59,20 +62,22 @@ const Messege = (props: any) => {
 
   return (
     <div>
-      <div
+      <span
+        style={{ cursor: 'pointer', marginRight: '50px' }}
         onClick={() => {
           Url(props.message.userId)
         }}
       >
         <img style={{ width: '50px' }} src={props.message.photo} />
-      </div>
-      <div
+      </span>
+      <span
+        style={{ cursor: 'pointer', marginRight: '50px' }}
         onClick={() => {
           Url(props.message.userId)
         }}
       >
         {props.message.userName}
-      </div>
+      </span>
       {props.message.message}
       <hr />
     </div>
@@ -86,7 +91,10 @@ const AddMessege: FC = () => {
   const dispatch = useDispatch()
 
   const sendMessegHandler = () => {
-    dispatch(sendMessage(message))
+    if (status === 'ready') {
+      dispatch(sendMessage(message))
+      setMessage('')
+    }
   }
   return (
     <div>

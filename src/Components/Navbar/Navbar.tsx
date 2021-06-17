@@ -1,9 +1,10 @@
 import { Menu } from 'antd'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { AppStateType } from '../../Redux/redux-store'
 
-export const Navbar = () => {
+export const Navbar = React.memo(() => {
   const history = useHistory()
   const href = useLocation().pathname
   const id = useSelector((state: AppStateType) => state.auth.data.id)
@@ -50,4 +51,4 @@ export const Navbar = () => {
       </Menu.Item>
     </Menu>
   )
-}
+})

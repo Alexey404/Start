@@ -39,9 +39,11 @@ const App: FC = () => {
     (state: AppStateType) => state.auth
   )
   const dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(getAuth())
   }, [isFetchingAll])
+
 
   return (
     <>
@@ -104,4 +106,4 @@ const App: FC = () => {
     </>
   )
 }
-export default App
+export default React.memo(App)
