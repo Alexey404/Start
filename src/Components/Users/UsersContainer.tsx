@@ -6,7 +6,7 @@ import { requestUsers } from '../../Redux/users-reducer'
 import Pagination from '../common/Pagination/Pagination'
 import styles from './user.module.scss'
 import Users from './Users'
-import UsersSearchForm from './UsersSearch'
+import { UsersSearchForm } from './UsersSearch'
 
 const UseQueryParamsExample = () => {
   const { pageSize, totalUsersCount } = useSelector(

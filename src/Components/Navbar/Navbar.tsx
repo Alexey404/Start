@@ -9,7 +9,7 @@ export const Navbar = React.memo(() => {
   const href = useLocation().pathname
   const id = useSelector((state: AppStateType) => state.auth.data.id)
 
-  const Url = (id: number | null) => {
+  const Url = () => {
     history.push({
       pathname: `/profile`,
       search: `?userId=${id}`,
@@ -20,7 +20,6 @@ export const Navbar = React.memo(() => {
     <Menu
       mode='inline'
       defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
       style={{ height: '100%' }}
       selectedKeys={[href]}
     >
@@ -43,7 +42,7 @@ export const Navbar = React.memo(() => {
       <Menu.Item key='/profile'>
         <div
           onClick={() => {
-            Url(id)
+            Url()
           }}
         >
           Profile

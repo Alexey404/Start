@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik'
-import React, { useCallback } from 'react'
+import React, { FC } from 'react'
 import { DisplayFlex } from '../common/FormControls/displayFlex'
 
 type UsersSearchType = {
@@ -7,7 +7,11 @@ type UsersSearchType = {
   friends: string | null | undefined
 }
 
-const UsersSearchForm = React.memo(({ onClickTerm }: any) => {
+type Props = {
+  onClickTerm: (values: UsersSearchType) => void
+}
+
+export const UsersSearchForm: FC<Props> = React.memo(({ onClickTerm }) => {
   const submit = (values: UsersSearchType) => {
     onClickTerm(values)
   }
@@ -28,4 +32,3 @@ const UsersSearchForm = React.memo(({ onClickTerm }: any) => {
     </Formik>
   )
 })
-export default UsersSearchForm

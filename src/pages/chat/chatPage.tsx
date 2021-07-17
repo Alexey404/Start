@@ -15,6 +15,7 @@ const ChatPage = () => {
     </div>
   )
 }
+
 const Chat = () => {
   const status = useSelector((state: AppStateType) => state.chat.status)
   const dispatch = useDispatch()
@@ -38,6 +39,7 @@ const Chat = () => {
     </div>
   )
 }
+
 const Messeges: FC = () => {
   const messages = useSelector((state: AppStateType) => state.chat?.messages)
 
@@ -61,9 +63,9 @@ const Messege = (props: any) => {
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       <span
-        style={{ cursor: 'pointer', marginRight: '50px' }}
+        style={{ cursor: 'pointer', marginRight: '20px' }}
         onClick={() => {
           Url(props.message.userId)
         }}
@@ -71,7 +73,7 @@ const Messege = (props: any) => {
         <img style={{ width: '50px' }} src={props.message.photo} />
       </span>
       <span
-        style={{ cursor: 'pointer', marginRight: '50px' }}
+        style={{ cursor: 'pointer', marginRight: '20px', marginBottom: '20px' }}
         onClick={() => {
           Url(props.message.userId)
         }}
@@ -79,7 +81,6 @@ const Messege = (props: any) => {
         {props.message.userName}
       </span>
       {props.message.message}
-      <hr />
     </div>
   )
 }
@@ -87,7 +88,6 @@ const Messege = (props: any) => {
 const AddMessege: FC = () => {
   const status = useSelector((state: AppStateType) => state.chat.status)
   const [message, setMessage] = useState('')
-
   const dispatch = useDispatch()
 
   const sendMessegHandler = () => {
@@ -101,7 +101,7 @@ const AddMessege: FC = () => {
       <textarea
         onChange={e => setMessage(e.currentTarget.value)}
         value={message}
-      ></textarea>
+      />
       <button disabled={status !== 'ready'} onClick={sendMessegHandler}>
         Send
       </button>

@@ -1,8 +1,8 @@
-import { Col, Layout, Menu, Row } from 'antd'
+import { Layout } from 'antd'
 import 'antd/dist/antd.css'
 import React, { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import './App.css'
 import Preloader from './Components/common/Preloader/Preloader'
 import HEader from './Components/Header/Header'
@@ -39,11 +39,10 @@ const App: FC = () => {
     (state: AppStateType) => state.auth
   )
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
     dispatch(getAuth())
   }, [isFetchingAll])
-
 
   return (
     <>
@@ -51,45 +50,44 @@ const App: FC = () => {
         <Preloader />
       ) : (
         <Layout>
-          <Header className='header'>
+          <Header className="header">
             <HEader />
           </Header>
           <Content style={{ padding: '0 50px' }}>
             <Layout
-              className='site-layout-background'
+              className="site-layout-background"
               style={{ padding: '24px 0' }}
             >
               {!isAuth ? (
                 ''
               ) : (
-                <Sider className='site-layout-background' width={150}>
+                <Sider className="site-layout-background" width={150}>
                   <Navbar />
                 </Sider>
               )}
-
-              <Content style={{ padding: '0 24px', minHeight: 280 }}>
+              <Content style={{ padding: '0 24px', minHeight: 750 }}>
                 <div>
-                  <div className='containАer'>
+                  <div className="containАer">
                     <Switch>
                       <Route
-                        path='/profile'
+                        path="/profile"
                         render={() => <SuspendedProfile />}
                       />
-                      <Route exact path='/' render={() => <SuspendedLogin />} />
+                      <Route exact path="/" render={() => <SuspendedLogin />} />
                       <Route
-                        path='/dialogs'
+                        path="/dialogs"
                         render={() => <SuspendedDialogs />}
                       />
-                      <Route path='/users' render={() => <SuspendedUsers />} />
-                      <Route path='/news' render={() => <NewsContainer />} />
-                      <Route path='/music' render={() => <MusicContiner />} />
-                      <Route path='/chat' render={() => <SuspendedChat />} />
+                      <Route path="/users" render={() => <SuspendedUsers />} />
+                      <Route path="/news" render={() => <NewsContainer />} />
+                      <Route path="/music" render={() => <MusicContiner />} />
+                      <Route path="/chat" render={() => <SuspendedChat />} />
                       <Route
-                        path='/settings'
+                        path="/settings"
                         render={() => <SettingsContainer />}
                       />
                       <Route
-                        path='*'
+                        path="*"
                         render={() => <div>404 Not definde</div>}
                       />
                     </Switch>
